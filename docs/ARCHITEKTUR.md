@@ -199,10 +199,14 @@ Mittelpunkt `·` (UTF-8) bleibt erhalten, und die Browser-Suche findet Cat. No. 
   `collection_YYYYMMDD-HHMMSS.nml`; atomar ersetzen; danach Parse- und Stichprobentest.
 - **Umbenennen (Modul 6):** Dateiname, `LOCATION@FILE` **und** alle Playlist-Verweise
   (`PRIMARYKEY KEY="…"`) im selben Plan. Sonst verliert Traktor die Datei in Playlists.
-- **ID3-Comment schreiben** ändert das Datei-Datum → Traktor liest Tags evtl. neu und kann
-  den Traktor-eigenen `PRIV`-Frame bevorzugen. Deshalb Reihenfolge:
-  1. Datei-Tags schreiben, 2. NML schreiben, 3. Konsistenzprüfung nach Traktor-Start
-  (Stichprobe NML gegen DB).
+- **ID3-Comment schreiben** (in P2 getestet, `docs/FELDINVENTAR.md` § 5): Traktor liest die
+  Datei-Tags beim Laden eines Tracks neu, wenn das Datei-Datum neuer ist als
+  `ENTRY@MODIFIED_DATE/TIME` (UTC), und überschreibt damit den NML-Wert. ID3-`COMM` gewinnt
+  gegen einen veralteten PRIV-Frame `TRAKTOR4`. Deshalb:
+  1. Datei-Tags schreiben – **alle** COMM-Frames (auch desc `ID3v1 Comment`), PRIV unverändert,
+     Datei-Datum nicht zurücksetzen (M16),
+  2. NML im selben Plan mit denselben Werten schreiben,
+  3. Konsistenzprüfung nach Traktor-Lauf (Stichprobe NML gegen DB).
 - Mehrere Traktor-Installationen/Versionen: Collection-Pfad je Rechner konfigurierbar,
   Mac-Standard `~/Documents/Native Instruments/Traktor 4.5.x/`.
 

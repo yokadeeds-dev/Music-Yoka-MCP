@@ -56,9 +56,8 @@ def traktor_laeuft() -> bool:
     return subprocess.run(["pgrep", "-x", "Traktor Pro 4"], capture_output=True).returncode == 0
 
 
-def testton(pfad: Path, nummer: int, sekunden: int = 30, bpm: float = 128.0) -> None:
-    """Sinus plus Kick-Impulse, damit Traktor etwas zu analysieren hat."""
-    rate = 44100
+def testton_pcm(nummer: int, sekunden: int = 30, bpm: float = 128.0, rate: int = 44100) -> bytes:
+    """Sinus plus Kick-Impulse (16 Bit mono), damit Traktor etwas zu analysieren hat."""
     beat = 60.0 / bpm
     frequenz = 110.0 * (1 + nummer / 7)
     rahmen = bytearray()
@@ -68,11 +67,15 @@ def testton(pfad: Path, nummer: int, sekunden: int = 30, bpm: float = 128.0) -> 
         kick = math.sin(2 * math.pi * 55 * phase) * math.exp(-phase * 30) if phase < 0.15 else 0.0
         wert = 0.25 * math.sin(2 * math.pi * frequenz * t) + 0.6 * kick
         rahmen += struct.pack("<h", int(max(-1.0, min(1.0, wert)) * 32000))
+    return bytes(rahmen)
+
+
+def testton(pfad: Path, nummer: int, sekunden: int = 30) -> None:
     with wave.open(str(pfad), "wb") as w:
         w.setnchannels(1)
         w.setsampwidth(2)
-        w.setframerate(rate)
-        w.writeframes(bytes(rahmen))
+        w.setframerate(44100)
+        w.writeframes(testton_pcm(nummer, sekunden))
 
 
 def nml_dir(ordner: Path) -> str:
@@ -108,21 +111,23 @@ def vorbereiten() -> None:
     print(f"{len(TRACKS)} Testtöne und {TEST_NML.name} in {TESTORDNER}")
 
 
-def einsetzen() -> None:
+def einsetzen(test_nml: Path = TEST_NML) -> None:
+    ordner = test_nml.parent
+    zustand = ordner / ZUSTAND.name
     if traktor_laeuft():
         sys.exit("Abbruch: Traktor läuft.")
-    if ZUSTAND.exists():
-        sys.exit(f"Abbruch: {ZUSTAND} existiert – Test läuft schon, erst 'zurueck'.")
+    if zustand.exists():
+        sys.exit(f"Abbruch: {zustand} existiert – Test läuft schon, erst 'zurueck'.")
     stempel = time.strftime("%Y%m%d-%H%M%S")
     backup = COLLECTION.with_name(f"collection_{stempel}.nml")
     shutil.copy2(COLLECTION, backup)
     pruefsumme = sha256(COLLECTION)
     if sha256(backup) != pruefsumme:
         sys.exit("Abbruch: Backup weicht ab.")
-    shutil.copy2(backup, TESTORDNER / backup.name)  # zweite Sicherung im Repo (ignoriert)
-    ZUSTAND.write_text(json.dumps({"backup": str(backup), "sha256": pruefsumme}, indent=2))
+    shutil.copy2(backup, ordner / backup.name)  # zweite Sicherung im Repo (ignoriert)
+    zustand.write_text(json.dumps({"backup": str(backup), "sha256": pruefsumme}, indent=2))
     tmp = COLLECTION.with_name("collection.nml.musicyoka-tmp")
-    shutil.copyfile(TEST_NML, tmp)
+    shutil.copyfile(test_nml, tmp)
     if traktor_laeuft():
         tmp.unlink()
         sys.exit("Abbruch: Traktor wurde gestartet.")
@@ -142,21 +147,22 @@ def auswerten() -> None:
         print("   Elemente:", [k.tag for k in entry])
 
 
-def zurueck() -> None:
+def zurueck(ordner: Path = TESTORDNER) -> None:
     if traktor_laeuft():
         sys.exit("Abbruch: Traktor läuft.")
-    zustand = json.loads(ZUSTAND.read_text())
+    zustandsdatei = ordner / ZUSTAND.name
+    zustand = json.loads(zustandsdatei.read_text())
     backup = Path(zustand["backup"])
     if sha256(backup) != zustand["sha256"]:
         sys.exit("Abbruch: Backup hat sich verändert!")
-    shutil.copyfile(COLLECTION, TESTORDNER / "collection_test_nach_traktor.nml")
+    shutil.copyfile(COLLECTION, ordner / "collection_test_nach_traktor.nml")
     tmp = COLLECTION.with_name("collection.nml.musicyoka-tmp")
     shutil.copy2(backup, tmp)
     os.replace(tmp, COLLECTION)
     ok = sha256(COLLECTION) == zustand["sha256"]
     print("Original wiederhergestellt, Prüfsumme", "IDENTISCH" if ok else "ABWEICHEND!")
     if ok:
-        ZUSTAND.rename(ZUSTAND.with_suffix(".erledigt.json"))
+        zustandsdatei.rename(zustandsdatei.with_suffix(".erledigt.json"))
 
 
 if __name__ == "__main__":

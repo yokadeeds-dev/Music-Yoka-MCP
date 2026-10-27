@@ -1,6 +1,6 @@
 # Arbeitsplan
 
-**Status: P2 läuft – Schritte 1 (Feldinventar) und 3 (Schreibtest) erledigt. Offen: Schritt 4 (ID3-Comment, Datei-Datum, PRIV-Frame), dann Abnahme P2.**
+**Status: P2 läuft – Schritte 1, 3 und 4 erledigt. Offen: Runde 3 (NML-Felder bei neuerer Datei, Vorschlag), M26 freigeben, dann Abnahme P2.**
 
 Regel: sequenziell, ein Paket je Session, Freigabe nach jedem Paket.
 Jeder Commit pflegt diesen Plan mit.
@@ -42,10 +42,11 @@ dann Analyse und Pflege.
 - 2026-10-27 M21/M22: Comment-Inhalt entschieden; Farbbestand Rot/Orange/Blau gültig.
 - 2026-10-27 M23: Farbschema nach Party-Phasen, 5 Farben, Magenta/Cyan Reserve.
 - 2026-10-27 P2/3: Schreibtest mit Traktor 4.5.1 bestanden (M25), Original byte-genau zurück; Bassmuster 16 Zeichen (M24).
+- 2026-10-27 P2/4: ID3-Test (2 Runden), Original byte-genau zurück; Traktor liest neuere Dateien beim Laden neu, COMM schlägt PRIV; M16 bestätigt, M26 vorgeschlagen.
 - 2026-10-27 M20: Pool-Grundregel `+ Kachina +` → KACHINA, sonst YOKA.
 
 ## Offene Punkte
 
 - Verlorene Farben aus 4.5.0 (424 Tracks, Rot/Blau): Wiederherstellung als Plan (M22, frühestens P5a).
-- Smartlists MORNING/NACHT/COSMIC ALTERNATIVE filtern nach Comment → bei M21 auf `$COLOR` umstellen? (Yoka)
+- Smartlists sollen nur nach Farbe filtern (Yoka); MORNING/NACHT/COSMIC ALTERNATIVE filtern heute nach Comment → später genauer ansehen.
 - Auftrag im Spotify-Repo: `isrc`, `duration_ms`, `playlist_tracks` (vor P5l).

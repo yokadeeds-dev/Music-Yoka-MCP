@@ -117,6 +117,43 @@ Hinweis: Die Smartlists „MORNING (2)“/„NACHT“/„COSMIC ALTERNATIVE“ f
 Nur 3 Tracks haben tatsächlich `MORNING` als Comment (alle schon Blau); bei Umsetzung von M21
 sollten diese Smartlists auf `$COLOR` umgestellt werden (Vorschlag, Yoka entscheidet).
 
+## 5. ID3-Test (P2, Schritt 4, 2026-10-27)
+
+Werkzeug `tools/traktor_id3test.py` (`.venv` mit mutagen, lameenc). 4 synthetische MP3s mit
+ID3v2.3-Comment, Test-Collection wie in § 4, zwei Traktor-Runden, Original danach byte-genau zurück.
+
+| Track | Ausgang | Beim Start | Nach Laden ins Deck |
+|---|---|---|---|
+| A | nur ID3 `ID3 A`, NML leer, Datei neuer | leer | `ID3 A` |
+| B | ID3 `ID3 B` (Datei 2026-01-01), NML `NML B` (neuer) | `NML B` | `NML B` |
+| C | ID3 `ID3 C` (Datei neuer), NML `NML C` (2026-01-01) | `NML C` | `ID3 C` |
+| D, Runde 1 | wie B; Yoka ändert in Traktor auf `Traktor D` | `NML D` | → `Traktor D` |
+| D, Runde 2 | beide COMM per mutagen `Mutagen D`, PRIV unverändert `Traktor D`, Datei neuer | – | `Mutagen D` |
+
+Befunde:
+
+1. **`ENTRY@MODIFIED_DATE`/`MODIFIED_TIME` = Datei-Datum (UTC, Sekunden seit Mitternacht)**
+   zum Zeitpunkt des letzten Einlesens/Schreibens durch Traktor.
+2. **Traktor liest Datei-Tags neu, wenn ein Track geladen wird und die Datei neuer ist als
+   `MODIFIED_*`.** Beim Start allein wird nichts neu gelesen. Der Wert aus der Datei
+   **überschreibt** dann den NML-Wert.
+3. **Comment ändern in Traktor** schreibt in die Datei: `COMM` (desc leer), `COMM` (desc
+   `ID3v1 Comment`) und einen **PRIV-Frame `TRAKTOR4`** (770 B, enthält u. a. den Comment als
+   UTF-16 im Block `COMM`). Datei-Datum wird neu.
+4. **ID3-`COMM` gewinnt gegen einen veralteten PRIV-Frame.** Traktor aktualisiert den PRIV-Frame
+   beim Einlesen nicht.
+5. Nur Laden ins Deck schreibt nichts in die Datei.
+
+Folgen für das Schreiben (→ ARCHITEKTUR § 9.2, M26):
+
+- M16 (Datei-Datum nicht zurücksetzen) ist **bestätigt**: Nur so übernimmt Traktor neue Tags.
+- Beim Tag-Schreiben **alle** COMM-Frames gleich setzen (auch `ID3v1 Comment`); PRIV nicht anfassen.
+- NML und Datei-Tags im **selben Plan** konsistent schreiben – sonst überschreibt Traktor beim
+  nächsten Laden den NML-Wert mit dem älteren Datei-Wert.
+- **Offen:** Bleiben reine NML-Felder (Comment 2, Cat. No., Color) erhalten, wenn Traktor eine
+  neuere Datei einliest? Und wohin schreibt Traktor diese Felder, wenn man sie in Traktor ändert?
+  → Vorschlag Runde 3.
+
 ## Anhang: Rohzählung
 
 Elemente und Felder je Eintrag (je Eintrag einmal gezählt). Erzeugt mit
