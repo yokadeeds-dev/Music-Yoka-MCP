@@ -51,9 +51,15 @@ noch unbelegt und wird im Schreibtest (Schritt 3) in Traktor geprüft.
 ## 2. Farben
 
 Belegt in 186 Einträgen: Index 1 (5), 2 (115), 3 (24), 4 (11), 5 (26), 6 (3), 7 (2).
-Die Namen lassen sich nicht aus der NML ablesen. Annahme (Traktor-Reihenfolge):
-1 Rot, 2 Orange, 3 Gelb, 4 Grün, 5 Blau, 6 Violett, 7 Magenta → **Yoka prüft in Traktor**
-anhand je eines Beispieltracks pro Index (Liste nur im Chat, nicht im Repo).
+Die Namen lassen sich nicht aus der NML ablesen. **Farbmenü in Traktor 4.5.1 (Yoka, 2026-10-27):**
+Red, Yellow, Blue, Magenta, Cyan, Green, Orange, None.
+
+Annahme: Menüreihenfolge = Index → 1 Red, 2 Yellow, 3 Blue, 4 Magenta, 5 Cyan, 6 Green,
+7 Orange; None = Attribut fehlt. **Wird im Schreibtest (Schritt 3) bestätigt** (7 Testtracks
+mit `COLOR` 1–7, Anzeige in Traktor).
+
+**Folge für Modul 9:** Traktor hat **kein Violett**, dafür **Cyan**. Das Farbschema
+(Grün, Blau, Gelb, Orange, Rot, Magenta, Violett) muss angepasst werden → Entscheidung Yoka.
 
 **Befund: Farben in 4.5.1 verloren.** In der 4.5.0-Collection waren 609 Tracks farbig, in 4.5.1
 nur 186. Die 424 fehlenden Farb-Tracks sind in 4.5.1 **gar nicht mehr in der Collection**
