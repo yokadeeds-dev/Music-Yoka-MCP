@@ -12,7 +12,7 @@ Jeder Commit pflegt diesen Plan mit.
 | **P1** | Repo, Architektur, Feature-Matrix, Entscheidungen | Freigabe Dokumente + offene Fragen F1–F8 |
 | **P2** | Traktor-Tests + Feldinventar | **Feldinventar:** alle Traktor-Felder ↔ NML-Attribute ↔ ID3-Frames; Belegungsquote je Feld in einer *Kopie* der echten Collection (nur lesend); Vorschlag für freie Felder inkl. Comment (F5). 7 Farbnamen + NML-Indizes verifiziert; Comment 2 / Cat. No. / Color in NML-Kopie geschrieben, Traktor zeigt sie; ID3-Comment, Datei-Datum und PRIV-Frame-Verhalten dokumentiert (F6) |
 | **P3** | DB-Schema | Tabellen Datenträger, Dateien, Tracks, Pools, Duplikatgruppen, Spotify-Match, Pläne, Wert-Historie; Migrationen; Tests |
-| **P4** | Kern-Scanner + Datenträger-Erkennung | Scan eines Testdatenträgers, Wiederaufnahme, inkrementeller Zweitlauf; Export/Import; MCP lesend; CLI |
+| **P4** | Kern-Scanner + Datenträger-Erkennung | Scan eines Testdatenträgers, Wiederaufnahme, inkrementeller Zweitlauf; Export/Import; MCP lesend; CLI; Lese-Kopie für Windows (M19) |
 | **P5a** | NML lesen + DJ-Pool → Cat. No. | Pool-Regeln mit Yoka; erster NML-Schreibplan |
 | **P5b** | Release-Jahr + OLDSCHOOL | Prüfliste Widersprüche; Comment-2-Plan |
 | **P5c** | Duplikate Stufe 1 | Gruppenliste, Quarantäne-Plan (kein Löschen) |
@@ -26,6 +26,7 @@ Jeder Commit pflegt diesen Plan mit.
 | **P5k** | Playlists | M3U/M3U8, Rekordbox XML, Traktor |
 | **P5l** | Spotify-Abgleich | nach Erweiterung Spotify-Repo |
 | **P5m** | CD/DVD | Disc-ID, Daten-Discs |
+| **P6** | DB-Dienst im LAN (M19) | Live-Abfragen vom Windows-Rechner; Mac führend; nur bei Bedarf |
 
 Reihenfolge P5: zuerst, was in Traktor sofort sichtbar wird (Cat. No., Comment 2 OLDSCHOOL, Color),
 dann Analyse und Pflege.
@@ -35,6 +36,7 @@ dann Analyse und Pflege.
 - 2026-10-27 P1: Dokumente erstellt (ARCHITEKTUR, FEATURE_MATRIX, ENTSCHEIDUNGEN, PLAN).
 - 2026-10-27 P1: F1–F4, F7 von Yoka entschieden; F6, F8 nach Empfehlung; F5 nach P2 verschoben (M12–M18).
 - 2026-10-27 P1: Repo yokadeeds-dev/Music-Yoka-MCP angelegt; P1 von Yoka freigegeben, M1–M10 entschieden.
+- 2026-10-27 M19: Lese-Kopie für Windows (P4), DB-Dienst im LAN später (P6).
 
 ## Offene Punkte
 

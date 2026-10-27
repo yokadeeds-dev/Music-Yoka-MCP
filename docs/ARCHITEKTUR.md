@@ -68,7 +68,12 @@ Feature-Prioritäten: `docs/FEATURE_MATRIX.md`. Entscheidungen: `docs/ENTSCHEIDU
 - **Phase 1: Export/Import.** Jeder Scanner schreibt eine eigenständige Scan-Datei
   (SQLite, Schema-Version, Datenträger-ID, Zeitstempel). Die zentrale DB importiert sie.
   Vorteil: funktioniert offline, kein Dienst nötig, keine Netzwerk-Sperren.
-- **Später optional: zentraler Dienst** (HTTP, nur LAN) für Live-Abfragen von anderen Rechnern.
+- **Lese-Kopie für Windows (M19, P4):** Der Mac exportiert auf Befehl eine konsistente
+  Kopie der DB (`VACUUM INTO`, nie Dateikopie im laufenden Betrieb) mit Zeitstempel.
+  Auf Windows lokal geöffnet, MCP-Server dort nur lesend: Abfragen ja, keine Pläne,
+  keine Freigaben, kein Schreiben. Antworten nennen das Alter der Kopie.
+- **Später: zentraler Dienst** (M19, P6; HTTP, nur LAN) für Live-Abfragen von anderen Rechnern.
+  Mac bleibt führend.
 - **Nie:** SQLite-Datei über SMB/AFP öffnen (Sperren unzuverlässig → Korruption).
 
 ### 4.2 Wo läuft was
@@ -76,6 +81,7 @@ Feature-Prioritäten: `docs/FEATURE_MATRIX.md`. Entscheidungen: `docs/ENTSCHEIDU
 | Komponente | Ort | Grund |
 |---|---|---|
 | Zentrale DB + MCP-Server | **Mac** (F1) | Eine Wahrheit; Claude Desktop und Traktor auf demselben Rechner |
+| Lese-Kopie + MCP-Server (nur lesend) | Windows (M19) | Abfragen mit Claude auch am Windows-Rechner; Stand = letzter Export |
 | Scanner | jeder Rechner mit Musik | liest nur, schreibt Scan-Datei; Windows-Scans werden auf den Mac importiert |
 | NML-Schreiber | **Mac** (F2, Traktor läuft nur dort) | NML liegt dort, Traktor-Prozessprüfung lokal |
 | Audio-Analyse (Essentia) | Mac | Essentia ist dort per pip verfügbar |
