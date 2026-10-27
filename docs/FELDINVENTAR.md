@@ -22,7 +22,7 @@ Spalte „ID3" = **Annahme**, wird im Schreibtest (P2, Schritt 4) an synthetisch
 | Cat. No. | `INFO@CATALOG_NO` | TXXX? | — | **frei** → DJ-Pool (M-Vorgabe) |
 | Genre | `INFO@GENRE` | TCON | 21,9 % | 134 Werte, mit Werbung/Tippfehlern |
 | Comment | `INFO@COMMENT` | COMM | 17,5 % | Inhalt siehe § 3 (F5) |
-| Comment 2 | `INFO@RATING` | ? | — | **frei** → OLDSCHOOL + Bassmuster |
+| Comment 2 | `INFO@RATING` | ? | — | **frei** → OLDSCHOOL + Bassmuster (16 Zeichen, M24) |
 | Lyrics | `INFO@KEY_LYRICS` | USLT | 0,3 % | nur Werbung/Release-Infos |
 | Key Text | `INFO@KEY` | TKEY | 55,7 % | Open-Key-Notation (`11m`, `12d`) |
 | Key (Analyse) | `MUSICAL_KEY@VALUE` | – | 99,2 % | 0–23, Traktor-intern |
@@ -45,8 +45,7 @@ Nicht in den NML-Attributen: Playlists (`PLAYLISTS`, Verweis über `PRIMARYKEY`)
 `INDEXING`. Achtung beim Parsen: Playlist-Verweise sind ebenfalls `ENTRY`-Elemente, aber ohne `LOCATION`.
 
 **Nachweis Comment 2 / Cat. No.:** `RATING`, `CATALOG_NO` und `MIX` kommen in **keiner** der
-7 vorhandenen Collections (4.1.1–4.5.1) vor. Die Zuordnung `Comment 2 = INFO@RATING` ist damit
-noch unbelegt und wird im Schreibtest (Schritt 3) in Traktor geprüft.
+7 vorhandenen Collections (4.1.1–4.5.1) vor. Die Zuordnung ist im Schreibtest bestätigt (§ 4).
 
 ## 2. Farben
 
@@ -56,8 +55,8 @@ Die Namen lassen sich nicht aus der NML ablesen.
 - **Farbmenü Traktor 4.5.1** (Yoka): Red, Yellow, Blue, Magenta, Cyan, Green, Orange, None.
 - **Anzeige der Beispieltracks** (Yoka): 1 Rot, 2 Orange, 3 Gelb, 4 Grün, 5 Blau, 6 Magenta, 7 Magenta.
 
-Damit gilt vorläufig: 1 Red, 2 Orange, 3 Yellow, 4 Green, 5 Blue, 7 Magenta.
-**Index 6 ist unklar** (Menü kennt Cyan, Anzeige wirkte magenta) → Schreibtest (Schritt 3).
+**Im Schreibtest bestätigt (§ 4):** 1 Rot, 2 Orange, 3 Gelb, 4 Grün, 5 Blau, 6 Cyan, 7 Magenta.
+Yokas Smartlists bestätigen das ebenfalls („o BLAU“ = `$COLOR == 5`, „o Orange“ = `$COLOR == 2`).
 Farbschema Modul 9 siehe M23 (5 Farben, Magenta und Cyan Reserve).
 
 **Bestand (Yoka):** Rot, Orange, Blau sind gültig vergeben (1: 5, 2: 115, 5: 26 Tracks).
@@ -96,6 +95,27 @@ Kein Comment enthält brauchbare, von Yoka gepflegte Information. `IXXxI` und di
 3. Vorhandene Werbe-Comments werden dabei überschrieben (laut Vorgabe erlaubt;
    alter Wert in `wert_historie`).
 4. **Frei bleiben** vorerst: Mix, Producer, Lyrics (Reserve).
+
+## 4. Schreibtest (P2, Schritt 3, 2026-10-27)
+
+Werkzeug `tools/traktor_schreibtest.py`. Ablauf: Traktor beendet (Prozessprüfung) → Backup
+`collection_20261027-083058.nml` + SHA-256 → Test-Collection mit 7 synthetischen WAV-Tracks
+(`testdaten/traktor_test/`) atomar eingesetzt → Prüfung in Traktor durch Yoka → Traktor
+beendet → Rückschrieb ausgewertet → Original zurück, **Prüfsumme identisch**.
+
+| Prüfung | Ergebnis |
+|---|---|
+| `INFO@COLOR` 1–7 | 1 Rot, 2 Orange, 3 Gelb, 4 Grün, 5 Blau, 6 Cyan, 7 Magenta |
+| `INFO@RATING` → Spalte Comment 2 | ✔ angezeigt, auch `OLDSCHOOL · ` + 64 Zeichen, `·` korrekt |
+| `INFO@CATALOG_NO` → Spalte Cat. No. | ✔ |
+| `INFO@COMMENT` → Spalte Comment | ✔ |
+| Browser-Suche | findet Werte aus Cat. No. und Comment 2 (z. B. `YOKA OLDSCHOOL`) |
+| Rückschreiben durch Traktor beim Beenden | alle Werte unverändert erhalten |
+
+Folge: 64 Zeichen sind in der Spalte zu lang → Bassmuster auf 16 Zeichen (M24).
+Hinweis: Die Smartlists „MORNING (2)“/„NACHT“/„COSMIC ALTERNATIVE“ filtern nach Comment.
+Nur 3 Tracks haben tatsächlich `MORNING` als Comment (alle schon Blau); bei Umsetzung von M21
+sollten diese Smartlists auf `$COLOR` umgestellt werden (Vorschlag, Yoka entscheidet).
 
 ## Anhang: Rohzählung
 

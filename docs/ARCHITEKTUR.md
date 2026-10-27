@@ -178,14 +178,17 @@ erstellen ──► Vorschau (Diff-Liste) ──► Freigabe Yoka ──► Ausf
 
 ## 9. Traktor-Anbindung (`collection.nml`)
 
-### 9.1 Feldbelegung (Vorgabe)
+### 9.1 Feldbelegung (in P2 mit Traktor 4.5.1 verifiziert)
 
-| Traktor-Spalte | Inhalt | NML-Attribut (Annahme, Schritt 2 verifiziert) |
+| Traktor-Spalte | Inhalt | NML-Attribut |
 |---|---|---|
-| Comment 2 | `OLDSCHOOL · <64-Zeichen-Bassmuster>`, ohne Oldschool nur Muster | `INFO@RATING` |
-| Color | Farbschema Modul 9 | `INFO@COLOR` (1–7) |
-| Cat. No. | DJ-Pool | `INFO@CATALOG_NO` |
-| Comment | darf überschrieben werden; **Inhalt offen** – erst nach Feldinventar P2 (F5) | `INFO@COMMENT` + ID3 `COMM` |
+| Comment 2 | `OLDSCHOOL · <16-Zeichen-Bassmuster>`, ohne Oldschool nur Muster (M24) | `INFO@RATING` ✔ |
+| Color | Farbschema Modul 9 (M23) | `INFO@COLOR`: 1 Rot, 2 Orange, 3 Gelb, 4 Grün, 5 Blau, 6 Cyan, 7 Magenta ✔ |
+| Cat. No. | DJ-Pool (M20) | `INFO@CATALOG_NO` ✔ |
+| Comment | Stichworte, z. B. `E7 · Vocal · Tribal` (M21) | `INFO@COMMENT` ✔ + ID3 `COMM` (Test P2/4) |
+
+Traktor zeigt alle vier Felder an, schreibt sie beim Beenden unverändert zurück, der
+Mittelpunkt `·` (UTF-8) bleibt erhalten, und die Browser-Suche findet Cat. No. und Comment 2.
 
 ### 9.2 Abläufe
 
@@ -218,7 +221,7 @@ Ergebnis eines Moduls ist **immer zuerst DB-Wissen**; Änderungen an Dateien/NML
 | 5 | Playlists | Export M3U/M3U8, Rekordbox XML, Traktor-Playlist in NML | Standardformate |
 | 6 | Dateinamen | „Artist - Titel" / „Artist - Titel (Remix-Artist Remix)", nur im selben Ordner | geprüfte DB-Metadaten, NML-Pfade im selben Plan |
 | 7 | CD/DVD | Audio-CD: Disc-ID; Daten-Discs scannen, danach offline | `discid`, Scanner |
-| 8 | Bassart | 64-Zeichen-Muster aus Kick + Bass, § 10.2 | NI-Stems / vorhandene Stems; sonst Separation (ki-studio-mackie) |
+| 8 | Bassart | 16-Zeichen-Muster (1 Takt) aus Kick + Bass, § 10.2 | NI-Stems / vorhandene Stems; sonst Separation (ki-studio-mackie) |
 | 9 | Farbe nach Party-Phase (M23): Grün Chill/Ambient/Psybient · Blau Morgen · Gelb Mittag/Sonne · Orange Nachmittag/Sonnenuntergang · Rot Nacht/Energie (inkl. Tiefe Nacht); Magenta + Cyan Reserve | Vorschlag je Track, Übernahme nach Bestätigung | BPM, Energie, Genre, Key; vorhandene Traktor-Farben als Trainingsdaten |
 | 10 | Release-Jahr + Oldschool | frühestes plausibles Datum, Konfidenz, Widersprüche → Prüfliste; < Grenzjahr → OLDSCHOOL | ID3, MusicBrainz `first-release-date`, Discogs, Spotify |
 | 11 | DJ-Pool | Regeln Datenträger + Unterordner → Pool | Einrichtung gemeinsam mit Yoka |
@@ -239,15 +242,17 @@ Ergebnis eines Moduls ist **immer zuerst DB-Wissen**; Änderungen an Dateien/NML
 
 ### 10.2 Bassart-Erkennung
 
-- Raster: 16tel, 16 Zeichen je Takt, **immer 4 Takte = 64 Zeichen**.
+- Raster: 16tel, **16 Zeichen = 1 Takt** (M24; vorher 4 Takte = 64 Zeichen).
 - Zeichen: `I` = Kick, `X` = Bass, `0` = Leerstelle.
-  - Offbeat: `I0X0I0X0I0X0I0X0` (×4)
-  - Reiter/16tel: `IXXXIXXXIXXXIXXX` (×4)
+  - Offbeat: `I0X0I0X0I0X0I0X0`
+  - Reiter/16tel: `IXXXIXXXIXXXIXXX`
   - Kick und Bass auf derselben 16tel → **`I`** (Kick hat Vorrang, F3).
 - Ablauf:
   1. **Beatgrid:** Traktor-Grid (BPM + erster Downbeat aus NML) bevorzugen, sonst eigene Beat-/Downbeat-Erkennung.
   2. **Ausschnitt:** 4 Takte aus einem repräsentativen Abschnitt (z. B. erster Abschnitt mit voller Energie) –
-     nicht der ganze Track. Spart >90 % Rechenzeit.
+     nicht der ganze Track. Spart >90 % Rechenzeit. Die 4 Takte werden je 16tel-Position per
+     Mehrheit zu **einem** Takt verdichtet (Vorschlag; robuster als ein einzelner Takt).
+     Weichen die Takte stark voneinander ab → geringe Konfidenz → Prüfliste.
   3. **Stems:** NI-Stem-Datei (Drums, Bass) → sonst vorhandene Stems → sonst Separation
      (`stem_pipeline.py` SCNet → `larsnet_drumsep.py` für Kick aus `drums.wav`, Repo ki-studio-mackie).
   4. **Onsets** je Stem (Spectral Flux, wie `drums_to_midi.py`) → auf 16tel quantisieren.
