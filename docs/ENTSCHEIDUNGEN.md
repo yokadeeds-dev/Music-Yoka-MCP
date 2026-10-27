@@ -14,4 +14,11 @@ Format: Nummer, Entscheidung, Grund. Status **vorgeschlagen** bis Freigabe P1.
 | M8 | Traktor-Analysewerte (BPM, Key, Grid) zuerst übernehmen | spart Rechenzeit, konsistent mit dem, was Yoka in Traktor sieht | vorgeschlagen |
 | M9 | Bassart nur auf 4-Takt-Ausschnitt, Stems bevorzugt (NI-Stem, vorhandene Stems) | Separation des ganzen Tracks ist bei 100k nicht machbar | vorgeschlagen |
 | M10 | Python ≥ 3.12, uv, offizielles `mcp`-SDK, stdio | wie Yoka-DAW-MCP | vorgeschlagen |
-| M11 | Spotify-Yoka-MCP-Cache nur lesen; fehlende Felder (ISRC, Dauer, Playlist-Zuordnung) dort ergänzen | klare Zuständigkeit je Repo | vorgeschlagen |
+| M11 | Spotify-Yoka-MCP-Cache nur lesen; fehlende Felder (ISRC, Dauer, Playlist-Zuordnung) dort ergänzen | klare Zuständigkeit je Repo | **entschieden (F7, Yoka)** |
+| M12 | Zentrale DB und MCP-Server auf dem Mac | F1, Yoka | entschieden |
+| M13 | Traktor nur auf dem Mac; NML-Schreiber nur dort | F2, Yoka | entschieden |
+| M14 | Bassmuster: Kick und Bass auf derselben 16tel → `I` | F3, Yoka | entschieden |
+| M15 | Audio-Code aus ki-studio-mackie als Kopie mit Herkunftsvermerk | F4, Yoka | entschieden |
+| M16 | Datei-Datum nach Tag-Schreiben nicht zurücksetzen | Backups erkennen Änderungen sonst nicht; Traktor soll Änderung sehen (F6, nach Empfehlung) | entschieden, Test in P2 |
+| M17 | Quarantäne: `_MusicYoka_Quarantaene` je Datenträger in der Wurzel, flach, mit `manifest.json`; nicht auf Backup-/Read-only-Medien | atomares Verschieben, Wiederherstellung ohne DB (F8, nach Empfehlung) | entschieden |
+| M18 | Inhalt Comment erst nach Feldinventar festlegen | vorhandene Felder (z. B. Genre) zuerst nutzen, keine Doppelbelegung (F5, Yoka) | offen bis P2 |

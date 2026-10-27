@@ -75,9 +75,10 @@ Feature-Prioritäten: `docs/FEATURE_MATRIX.md`. Entscheidungen: `docs/ENTSCHEIDU
 
 | Komponente | Ort | Grund |
 |---|---|---|
-| Zentrale DB + MCP-Server | Hauptrechner (offen, § 14 F1) | Eine Wahrheit |
-| Scanner | jeder Rechner mit Musik | liest nur, schreibt Scan-Datei |
-| NML-Schreiber | Rechner mit Traktor (Mac) | NML liegt dort, Traktor-Prozessprüfung lokal |
+| Zentrale DB + MCP-Server | **Mac** (F1) | Eine Wahrheit; Claude Desktop und Traktor auf demselben Rechner |
+| Scanner | jeder Rechner mit Musik | liest nur, schreibt Scan-Datei; Windows-Scans werden auf den Mac importiert |
+| NML-Schreiber | **Mac** (F2, Traktor läuft nur dort) | NML liegt dort, Traktor-Prozessprüfung lokal |
+| Audio-Analyse (Essentia) | Mac | Essentia ist dort per pip verfügbar |
 | Datei-Schreibaktionen (Tags, Umbenennen, Quarantäne) | Rechner, an dem der Datenträger hängt | nur online-Datenträger |
 
 ## 5. Datenträger und Dateiidentität
@@ -178,7 +179,7 @@ erstellen ──► Vorschau (Diff-Liste) ──► Freigabe Yoka ──► Ausf
 | Comment 2 | `OLDSCHOOL · <64-Zeichen-Bassmuster>`, ohne Oldschool nur Muster | `INFO@RATING` |
 | Color | Farbschema Modul 9 | `INFO@COLOR` (1–7) |
 | Cat. No. | DJ-Pool | `INFO@CATALOG_NO` |
-| Comment | darf überschrieben werden | `INFO@COMMENT` + ID3 `COMM` |
+| Comment | darf überschrieben werden; **Inhalt offen** – erst nach Feldinventar P2 (F5) | `INFO@COMMENT` + ID3 `COMM` |
 
 ### 9.2 Abläufe
 
@@ -236,6 +237,7 @@ Ergebnis eines Moduls ist **immer zuerst DB-Wissen**; Änderungen an Dateien/NML
 - Zeichen: `I` = Kick, `X` = Bass, `0` = Leerstelle.
   - Offbeat: `I0X0I0X0I0X0I0X0` (×4)
   - Reiter/16tel: `IXXXIXXXIXXXIXXX` (×4)
+  - Kick und Bass auf derselben 16tel → **`I`** (Kick hat Vorrang, F3).
 - Ablauf:
   1. **Beatgrid:** Traktor-Grid (BPM + erster Downbeat aus NML) bevorzugen, sonst eigene Beat-/Downbeat-Erkennung.
   2. **Ausschnitt:** 4 Takte aus einem repräsentativen Abschnitt (z. B. erster Abschnitt mit voller Energie) –
@@ -245,14 +247,16 @@ Ergebnis eines Moduls ist **immer zuerst DB-Wissen**; Änderungen an Dateien/NML
   4. **Onsets** je Stem (Spectral Flux, wie `drums_to_midi.py`) → auf 16tel quantisieren.
   5. Muster schreiben, Konfidenz speichern; unsichere Muster → Prüfliste.
 - Optional je Ordner/Genre/Datenträger.
-- Wiederverwendung aus ki-studio-mackie: als **Abhängigkeit oder kopiertes, versioniertes Modul** (Entscheidung offen, § 14 F4).
+- Wiederverwendung aus ki-studio-mackie: **Kopie** der nötigen Funktionen mit Herkunftsvermerk
+  (Quelldatei + Commit) im Dateikopf (F4). Feste Pfade wie `F:\Tools\larsnet` werden zu Konfiguration.
 
 ## 11. Spotify-Verknüpfung
 
 - Spotify-Yoka-MCP (TypeScript, Cache `~/.spotify-mcp.db`) wird **nur gelesen**.
 - **Lücken im heutigen Spotify-Cache:** kein ISRC, keine Dauer, `tracks.id` als
   Primärschlüssel mit einer `playlist_id` (Track in mehreren Playlists wird überschrieben).
-  → Erweiterung im Spotify-Repo nötig: `isrc`, `duration_ms`, Tabelle `playlist_tracks`.
+  → **Spotify-Repo wird erweitert** (F7): `isrc`, `duration_ms`, Tabelle `playlist_tracks`.
+  Eigener Auftrag im Spotify-Repo, Voraussetzung für P5l.
 - Abgleich: **ISRC**, Fallback Artist + Titel + Dauer (±3 s), unsichere Treffer → Prüfliste.
 - Auswertungen: lokal vs. nur Spotify, Playlist-Übernahme, gemeinsame Genre-Daten,
   **Fehlliste** (Spotify-Track ohne lokale verlustfreie Version).
@@ -284,15 +288,27 @@ Prinzip wie Yoka-DAW: **lesen frei, schreiben nur über Pläne, freigeben nur Yo
 - Konfiguration: eine TOML-Datei je Rechner (Datenträger-Wurzeln, Collection-Pfad,
   Module, Prioritäten, Grenzjahr, Quarantäne-Pfade, API-Schlüssel per Umgebungsvariable).
 
-## 14. Offene Fragen (Freigabe nötig)
+## 14. Fragen und Entscheidungen
 
-| # | Frage | Empfehlung |
+| # | Frage | Entscheidung (2026-10-27) |
 |---|---|---|
-| F1 | Auf welchem Rechner liegt die zentrale DB? | Rechner, der am häufigsten läuft und die meisten Datenträger sieht; MCP-Server dort. |
-| F2 | Läuft Traktor nur auf dem Mac? | Annahme ja; NML-Schreiber dann nur dort. |
-| F3 | Zeichen, wenn Kick und Bass auf derselben 16tel liegen? | `I` (Kick hat Vorrang) – oder eigenes Zeichen `B`. Entscheidung Yoka. |
-| F4 | ki-studio-mackie-Audio: Abhängigkeit oder Kopie? | Kopie der nötigen Funktionen mit Herkunftsvermerk (Repos unabhängig deploybar). |
-| F5 | Was steht im ID3-Comment? | Gleicher Text wie Comment 2 (dann auch in Rekordbox/anderen Playern sichtbar). |
-| F6 | Datei-Datum nach Tag-Schreiben zurücksetzen? | Nein (Traktor soll Änderung bemerken); Konsistenzprüfung stattdessen. In Schritt 2 testen. |
-| F7 | Spotify-Repo erweitern (ISRC, Dauer, playlist_tracks)? | Ja, eigener kleiner Auftrag im Spotify-Repo. |
-| F8 | Quarantäne-Ort je Datenträger? | `<Wurzel>/_MusicYoka_Quarantaene/` außerhalb der Musikordner; einmalig mit Yoka festlegen. |
+| F1 | Auf welchem Rechner liegt die zentrale DB? | **Mac** (Yoka). |
+| F2 | Läuft Traktor nur auf dem Mac? | **Ja** (Yoka). NML-Schreiber nur dort. |
+| F3 | Zeichen, wenn Kick und Bass auf derselben 16tel liegen? | **`I`, Kick hat Vorrang** (Yoka). |
+| F4 | ki-studio-mackie-Audio: Abhängigkeit oder Kopie? | **Kopie** mit Herkunftsvermerk (Yoka). |
+| F5 | Was steht im ID3-Comment? | **Offen.** Erst Feldinventar in P2: welche Traktor-Felder es gibt, welche schon belegt sind (z. B. Genre), welche frei bleiben. Danach Entscheidung. |
+| F6 | Datei-Datum nach Tag-Schreiben zurücksetzen? | **Nein** (nach Empfehlung). Gründe: Backup-Werkzeuge erkennen Änderungen über das Datum – mit zurückgesetztem Datum würden Backups die neuen Tags nie bekommen; Traktor soll die Änderung bemerken. Absicherung: Konsistenzprüfung NML ↔ DB nach Traktor-Start. Verhalten in P2 testen. |
+| F7 | Spotify-Repo erweitern (ISRC, Dauer, playlist_tracks)? | **Ja** (Yoka). |
+| F8 | Quarantäne-Ort je Datenträger? | **Nach Empfehlung:** ein Ordner `_MusicYoka_Quarantaene` je Datenträger in dessen Wurzel, neben (nicht in) den Musikordnern. Siehe § 14.1. |
+
+### 14.1 Quarantäne (F8)
+
+- **Gleicher Datenträger:** Verschieben ist dann ein atomares Umbenennen – kein Kopieren,
+  kein zusätzlicher Speicher, kein halber Zustand bei Abbruch.
+- **Flach, ohne Unterordner:** Dateiname `<Plan-ID>_<Datei-ID>_<Originalname>`.
+- **`manifest.json` im Quarantäne-Ordner:** Originalpfad, Hash, Plan-ID, Datum je Datei –
+  Wiederherstellung auch ohne zentrale DB möglich.
+- **Anlegen nur einmal je Datenträger, per eigenem Plan mit Freigabe** (einzige erlaubte Ordneranlage).
+- **Keine Quarantäne** auf Datenträgern mit Rolle „Backup" und auf Read-only-Medien.
+- Pfad je Datenträger in der Konfiguration überschreibbar.
+- Leeren der Quarantäne: eigener Plan mit Freigabe, nie automatisch.

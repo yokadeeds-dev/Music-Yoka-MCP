@@ -10,7 +10,7 @@ Jeder Commit pflegt diesen Plan mit.
 | Paket | Inhalt | Ergebnis / Abnahme |
 |---|---|---|
 | **P1** | Repo, Architektur, Feature-Matrix, Entscheidungen | Freigabe Dokumente + offene Fragen F1–F8 |
-| **P2** | Traktor-Tests | 7 Farbnamen + NML-Indizes verifiziert; Comment 2 / Cat. No. / Color in Kopie der NML geschrieben, Traktor zeigt sie; ID3-Comment + PRIV-Frame-Verhalten dokumentiert |
+| **P2** | Traktor-Tests + Feldinventar | **Feldinventar:** alle Traktor-Felder ↔ NML-Attribute ↔ ID3-Frames; Belegungsquote je Feld in einer *Kopie* der echten Collection (nur lesend); Vorschlag für freie Felder inkl. Comment (F5). 7 Farbnamen + NML-Indizes verifiziert; Comment 2 / Cat. No. / Color in NML-Kopie geschrieben, Traktor zeigt sie; ID3-Comment, Datei-Datum und PRIV-Frame-Verhalten dokumentiert (F6) |
 | **P3** | DB-Schema | Tabellen Datenträger, Dateien, Tracks, Pools, Duplikatgruppen, Spotify-Match, Pläne, Wert-Historie; Migrationen; Tests |
 | **P4** | Kern-Scanner + Datenträger-Erkennung | Scan eines Testdatenträgers, Wiederaufnahme, inkrementeller Zweitlauf; Export/Import; MCP lesend; CLI |
 | **P5a** | NML lesen + DJ-Pool → Cat. No. | Pool-Regeln mit Yoka; erster NML-Schreibplan |
@@ -33,7 +33,9 @@ dann Analyse und Pflege.
 ## Fortschritt
 
 - 2026-10-27 P1: Dokumente erstellt (ARCHITEKTUR, FEATURE_MATRIX, ENTSCHEIDUNGEN, PLAN).
+- 2026-10-27 P1: F1–F4, F7 von Yoka entschieden; F6, F8 nach Empfehlung; F5 nach P2 verschoben (M12–M18).
 
 ## Offene Punkte
 
-Siehe `docs/ARCHITEKTUR.md` § 14 (F1–F8).
+- F5: Inhalt ID3-/Traktor-Comment → nach Feldinventar P2.
+- Auftrag im Spotify-Repo: `isrc`, `duration_ms`, `playlist_tracks` (vor P5l).
