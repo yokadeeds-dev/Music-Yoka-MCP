@@ -1,6 +1,6 @@
 # Arbeitsplan
 
-**Status: P1 fertig zur Freigabe – wartet auf Freigabe Yoka.**
+**Status: P1 freigegeben (2026-10-27). Nächstes Paket: P2 (auf dem Mac).**
 
 Regel: sequenziell, ein Paket je Session, Freigabe nach jedem Paket.
 Jeder Commit pflegt diesen Plan mit.
@@ -34,6 +34,7 @@ dann Analyse und Pflege.
 
 - 2026-10-27 P1: Dokumente erstellt (ARCHITEKTUR, FEATURE_MATRIX, ENTSCHEIDUNGEN, PLAN).
 - 2026-10-27 P1: F1–F4, F7 von Yoka entschieden; F6, F8 nach Empfehlung; F5 nach P2 verschoben (M12–M18).
+- 2026-10-27 P1: Repo yokadeeds-dev/Music-Yoka-MCP angelegt; P1 von Yoka freigegeben, M1–M10 entschieden.
 
 ## Offene Punkte
 
