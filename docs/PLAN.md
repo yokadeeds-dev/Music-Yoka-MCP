@@ -1,6 +1,6 @@
 # Arbeitsplan
 
-**Status: P2 läuft – Schritt 1 (Feldinventar) erledigt, wartet auf Yoka (Violett→?, F5, `IXXxI`). Danach Schritt 2–4.**
+**Status: P2 läuft – Schritt 1 (Feldinventar) erledigt, F5 entschieden (M21), Farben M22. Nächster Schritt 3 (Schreibtest) wartet auf Freigabe.**
 
 Regel: sequenziell, ein Paket je Session, Freigabe nach jedem Paket.
 Jeder Commit pflegt diesen Plan mit.
@@ -39,13 +39,12 @@ dann Analyse und Pflege.
 - 2026-10-27 M19: Lese-Kopie für Windows (P4), DB-Dienst im LAN später (P6).
 - 2026-10-27 P2/1: Feldinventar (`docs/FELDINVENTAR.md`, `tools/nml_feldinventar.py`); Comment 2/Cat. No. nirgends belegt; 424 Farb-Tracks aus 4.5.0 fehlen in 4.5.1.
 - 2026-10-27 P2/1: Farbmenü von Yoka geliefert (kein Violett, dafür Cyan).
+- 2026-10-27 M21/M22: Comment-Inhalt entschieden; Farbbestand Rot/Orange/Blau gültig.
 - 2026-10-27 M20: Pool-Grundregel `+ Kachina +` → KACHINA, sonst YOKA.
 
 ## Offene Punkte
 
-- F5: Inhalt Comment → Vorschlag in `docs/FELDINVENTAR.md` § 3, Entscheidung Yoka.
-- Farben: Traktor-Menü Red, Yellow, Blue, Magenta, Cyan, Green, Orange (Yoka); Index-Zuordnung in Schritt 3 bestätigen.
-- Modul 9: Traktor hat kein Violett, nur Cyan → Farbschema anpassen (Yoka).
-- Bedeutung Comment `IXXxI` (899 Tracks)?
-- Verlorene Farben aus 4.5.0 (424 Tracks): später als Vorschlag wiederherstellen (Modul 9).
+- Farbindex 6 (Cyan oder Violett/Magenta?) im Schreibtest klären.
+- Modul 9: Ersatz für Violett (Tiefe Nacht/Afterhour) festlegen, sobald Index 6 geklärt.
+- Verlorene Farben aus 4.5.0 (424 Tracks, Rot/Blau): Wiederherstellung als Plan (M22, frühestens P5a).
 - Auftrag im Spotify-Repo: `isrc`, `duration_ms`, `playlist_tracks` (vor P5l).

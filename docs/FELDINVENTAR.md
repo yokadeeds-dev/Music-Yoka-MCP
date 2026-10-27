@@ -51,21 +51,23 @@ noch unbelegt und wird im Schreibtest (Schritt 3) in Traktor geprüft.
 ## 2. Farben
 
 Belegt in 186 Einträgen: Index 1 (5), 2 (115), 3 (24), 4 (11), 5 (26), 6 (3), 7 (2).
-Die Namen lassen sich nicht aus der NML ablesen. **Farbmenü in Traktor 4.5.1 (Yoka, 2026-10-27):**
-Red, Yellow, Blue, Magenta, Cyan, Green, Orange, None.
+Die Namen lassen sich nicht aus der NML ablesen.
 
-Annahme: Menüreihenfolge = Index → 1 Red, 2 Yellow, 3 Blue, 4 Magenta, 5 Cyan, 6 Green,
-7 Orange; None = Attribut fehlt. **Wird im Schreibtest (Schritt 3) bestätigt** (7 Testtracks
-mit `COLOR` 1–7, Anzeige in Traktor).
+- **Farbmenü Traktor 4.5.1** (Yoka): Red, Yellow, Blue, Magenta, Cyan, Green, Orange, None.
+- **Anzeige der Beispieltracks** (Yoka): 1 Rot, 2 Orange, 3 Gelb, 4 Grün, 5 Blau, 6 Magenta, 7 Magenta.
 
-**Folge für Modul 9:** Traktor hat **kein Violett**, dafür **Cyan**. Das Farbschema
-(Grün, Blau, Gelb, Orange, Rot, Magenta, Violett) muss angepasst werden → Entscheidung Yoka.
+Damit gilt vorläufig: 1 Red, 2 Orange, 3 Yellow, 4 Green, 5 Blue, 7 Magenta.
+**Index 6 ist unklar** (Menü kennt Cyan, Anzeige wirkte magenta) → Schreibtest (Schritt 3).
+
+**Bestand (Yoka):** Rot, Orange, Blau sind gültig vergeben (1: 5, 2: 115, 5: 26 Tracks).
+Gelb, Grün, Index 6 und 7 (40 Tracks) sind alte Versuche und werden über Modul 9 neu gesetzt (M22).
 
 **Befund: Farben in 4.5.1 verloren.** In der 4.5.0-Collection waren 609 Tracks farbig, in 4.5.1
 nur 186. Die 424 fehlenden Farb-Tracks sind in 4.5.1 **gar nicht mehr in der Collection**
 (Pfad nicht mehr vorhanden). 82 davon finden sich über `AUDIO_ID` unter neuem Pfad wieder
 (meist aus Download-/Wetransfer-Ordnern in die Kachina-Ordner auf `AUDIO_XOS`), 80 davon
-**ohne Farbe**. Die übrigen 342 sind nicht zuzuordnen. Folge für Modul 9: die alten Collections
+**ohne Farbe**. Die übrigen 342 sind nicht zuzuordnen. **Alle 424 sind gültige Farben**
+(Rot 124, Blau 300) – also echte Arbeit, keine alten Versuche. Folge für Modul 9: die alten Collections
 (4.1.1–4.5.0) als zusätzliche Trainingsdaten und Quelle für eine Farb-Wiederherstellung nutzen
 (nur als Vorschlag mit Freigabe).
 
@@ -80,11 +82,11 @@ nur 186. Die 424 fehlenden Farb-Tracks sind in 4.5.1 **gar nicht mehr in der Col
 | lange `-`/`X`/`I`-Ketten (ca. 15 Tracks, Herkunft unklar) | ~18 |
 | Sonstiges (Release-Gruppen, Jahreszahlen u. ä.) | ~960 |
 
-Kein Comment enthält brauchbare, von Yoka gepflegte Information – außer evtl. `IXXxI`
-(Frage an Yoka). Genre ist nur zu 22 % belegt und teils verschmutzt (Werbung im Genre-Feld,
+Kein Comment enthält brauchbare, von Yoka gepflegte Information. `IXXxI` und die
+`-`/`X`/`I`-Ketten sind alte Bassart-Versuche (Yoka) und werden überschrieben. Genre ist nur zu 22 % belegt und teils verschmutzt (Werbung im Genre-Feld,
 `Psychadelic`/`Psychedelic`).
 
-### Vorschlag F5 (zur Entscheidung durch Yoka)
+### F5 – entschieden (Yoka, 2026-10-27, M21)
 
 1. **Genre bleibt im Genre-Feld** (Modul 2 füllt/bereinigt es) – keine Doppelung im Comment.
 2. **Comment = durchsuchbare Stichworte, die sonst kein Feld haben**, z. B.
