@@ -219,7 +219,7 @@ Ergebnis eines Moduls ist **immer zuerst DB-Wissen**; Änderungen an Dateien/NML
 | 6 | Dateinamen | „Artist - Titel" / „Artist - Titel (Remix-Artist Remix)", nur im selben Ordner | geprüfte DB-Metadaten, NML-Pfade im selben Plan |
 | 7 | CD/DVD | Audio-CD: Disc-ID; Daten-Discs scannen, danach offline | `discid`, Scanner |
 | 8 | Bassart | 64-Zeichen-Muster aus Kick + Bass, § 10.2 | NI-Stems / vorhandene Stems; sonst Separation (ki-studio-mackie) |
-| 9 | Farbe | Vorschlag je Track, Übernahme nach Bestätigung | BPM, Energie, Genre, Key; vorhandene Traktor-Farben als Trainingsdaten |
+| 9 | Farbe nach Party-Phase (M23): Grün Chill/Ambient/Psybient · Blau Morgen · Gelb Mittag/Sonne · Orange Nachmittag/Sonnenuntergang · Rot Nacht/Energie (inkl. Tiefe Nacht); Magenta + Cyan Reserve | Vorschlag je Track, Übernahme nach Bestätigung | BPM, Energie, Genre, Key; vorhandene Traktor-Farben als Trainingsdaten |
 | 10 | Release-Jahr + Oldschool | frühestes plausibles Datum, Konfidenz, Widersprüche → Prüfliste; < Grenzjahr → OLDSCHOOL | ID3, MusicBrainz `first-release-date`, Discogs, Spotify |
 | 11 | DJ-Pool | Regeln Datenträger + Unterordner → Pool | Einrichtung gemeinsam mit Yoka |
 

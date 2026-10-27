@@ -58,6 +58,7 @@ Die Namen lassen sich nicht aus der NML ablesen.
 
 Damit gilt vorläufig: 1 Red, 2 Orange, 3 Yellow, 4 Green, 5 Blue, 7 Magenta.
 **Index 6 ist unklar** (Menü kennt Cyan, Anzeige wirkte magenta) → Schreibtest (Schritt 3).
+Farbschema Modul 9 siehe M23 (5 Farben, Magenta und Cyan Reserve).
 
 **Bestand (Yoka):** Rot, Orange, Blau sind gültig vergeben (1: 5, 2: 115, 5: 26 Tracks).
 Gelb, Grün, Index 6 und 7 (40 Tracks) sind alte Versuche und werden über Modul 9 neu gesetzt (M22).
