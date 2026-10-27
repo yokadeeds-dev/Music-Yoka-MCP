@@ -4,3 +4,6 @@ __pycache__/
 *.db
 *.nml.bak
 .env
+
+# Kopien echter Traktor-Daten (persönlich, nie committen)
+testdaten/

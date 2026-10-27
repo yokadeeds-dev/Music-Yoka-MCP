@@ -4,7 +4,7 @@ Zentrale Datenbank über alle lokalen Musikdateien – viele Rechner, viele Date
 später CD/DVD – als MCP-Server für Claude. Hauptziel: **Sichtbarkeit in Traktor**
 (Comment 2, Color, Cat. No. in `collection.nml`). Verknüpft mit Spotify-Yoka-MCP.
 
-**Stand:** P1 freigegeben, nächstes Paket P2. Noch kein Code.
+**Stand:** P2 läuft (Feldinventar erledigt, `docs/FELDINVENTAR.md`).
 
 ## Dokumente
 
@@ -12,6 +12,7 @@ später CD/DVD – als MCP-Server für Claude. Hauptziel: **Sichtbarkeit in Trak
 - `docs/FEATURE_MATRIX.md` – Muss / Soll / Später
 - `docs/PLAN.md` – Arbeitspakete, Status, Fortschritt
 - `docs/ENTSCHEIDUNGEN.md` – Entscheidungen M1 ff.
+- `docs/FELDINVENTAR.md` – Traktor-Felder ↔ NML ↔ ID3, Belegung
 
 ## Grundsatz
 

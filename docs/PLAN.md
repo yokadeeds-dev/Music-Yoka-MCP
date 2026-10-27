@@ -1,6 +1,6 @@
 # Arbeitsplan
 
-**Status: P1 freigegeben (2026-10-27). Nächstes Paket: P2 (auf dem Mac).**
+**Status: P2 läuft – Schritt 1 (Feldinventar) erledigt, wartet auf Yoka (Farbnamen, F5, `IXXxI`). Danach Schritt 2–4.**
 
 Regel: sequenziell, ein Paket je Session, Freigabe nach jedem Paket.
 Jeder Commit pflegt diesen Plan mit.
@@ -37,8 +37,13 @@ dann Analyse und Pflege.
 - 2026-10-27 P1: F1–F4, F7 von Yoka entschieden; F6, F8 nach Empfehlung; F5 nach P2 verschoben (M12–M18).
 - 2026-10-27 P1: Repo yokadeeds-dev/Music-Yoka-MCP angelegt; P1 von Yoka freigegeben, M1–M10 entschieden.
 - 2026-10-27 M19: Lese-Kopie für Windows (P4), DB-Dienst im LAN später (P6).
+- 2026-10-27 P2/1: Feldinventar (`docs/FELDINVENTAR.md`, `tools/nml_feldinventar.py`); Comment 2/Cat. No. nirgends belegt; 424 Farb-Tracks aus 4.5.0 fehlen in 4.5.1.
+- 2026-10-27 M20: Pool-Grundregel `+ Kachina +` → KACHINA, sonst YOKA.
 
 ## Offene Punkte
 
-- F5: Inhalt ID3-/Traktor-Comment → nach Feldinventar P2.
+- F5: Inhalt Comment → Vorschlag in `docs/FELDINVENTAR.md` § 3, Entscheidung Yoka.
+- Farbnamen 1–7 in Traktor bestätigen (Yoka).
+- Bedeutung Comment `IXXxI` (899 Tracks)?
+- Verlorene Farben aus 4.5.0 (424 Tracks): später als Vorschlag wiederherstellen (Modul 9).
 - Auftrag im Spotify-Repo: `isrc`, `duration_ms`, `playlist_tracks` (vor P5l).
