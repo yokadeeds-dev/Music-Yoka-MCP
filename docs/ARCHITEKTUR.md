@@ -205,7 +205,9 @@ Mittelpunkt `·` (UTF-8) bleibt erhalten, und die Browser-Suche findet Cat. No. 
   gegen einen veralteten PRIV-Frame `TRAKTOR4`. Deshalb:
   1. Datei-Tags schreiben – **alle** COMM-Frames (auch desc `ID3v1 Comment`), PRIV unverändert,
      Datei-Datum nicht zurücksetzen (M16),
-  2. NML im selben Plan mit denselben Werten schreiben,
+  2. NML im selben Plan mit denselben Werten schreiben **und `ENTRY@MODIFIED_DATE/TIME` auf das
+     neue Datei-Datum (UTC) setzen** (M27) – sonst liest Traktor die Datei neu ein und überschreibt
+     Color und Comment 2 aus einem alten PRIV-Frame (`docs/FELDINVENTAR.md` § 6),
   3. Konsistenzprüfung nach Traktor-Lauf (Stichprobe NML gegen DB).
 - Mehrere Traktor-Installationen/Versionen: Collection-Pfad je Rechner konfigurierbar,
   Mac-Standard `~/Documents/Native Instruments/Traktor 4.5.x/`.
