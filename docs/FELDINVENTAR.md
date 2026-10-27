@@ -161,7 +161,7 @@ Eigene Test-Collection (`testdaten/traktor_id3test_r3/`), Original danach byte-g
 | 3 | Comment 2 / Cat. No. / Color nur in NML, Datei neuer, **ohne PRIV** | alle drei bleiben ✔, Comment ← ID3 |
 | 3 (Edit) | Yoka ändert Comment 2, Cat. No., Color in Traktor | Datei: nur `COMM` ×2 + **PRIV `TRAKTOR4`** (Blöcke u. a. `CTLG`, `COLR`); kein TXXX o. ä. |
 | 3b | NML neu (`NML C2E`, `NML CatE`, Cyan), ID3-Comment neu, Datei neuer, **PRIV alt** (`Traktor F2`, `Traktor CatF`, Gelb) | Cat. No. bleibt ✔ · **Color ← PRIV (Gelb)** ✘ · **Comment 2 ← ID3-Comment-Text** ✘ · Comment ← ID3 |
-| 3c | wie 3b, aber NML `MODIFIED_DATE/TIME` = neues Datei-Datum (UTC) | **alle NML-Werte bleiben** ✔ (kein Neu-Einlesen) |
+| 3c | wie 3b, aber NML `MODIFIED_DATE/TIME` = neues Datei-Datum (UTC) | **alle NML-Werte bleiben** ✔ (kein Neu-Einlesen); erster Lauf ohne Laden ins Deck ungültig, Wiederholung mit Laden bestätigt |
 
 Befunde:
 

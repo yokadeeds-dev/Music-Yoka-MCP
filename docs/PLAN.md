@@ -43,7 +43,7 @@ dann Analyse und Pflege.
 - 2026-10-27 M23: Farbschema nach Party-Phasen, 5 Farben, Magenta/Cyan Reserve.
 - 2026-10-27 P2/3: Schreibtest mit Traktor 4.5.1 bestanden (M25), Original byte-genau zurück; Bassmuster 16 Zeichen (M24).
 - 2026-10-27 P2/4: ID3-Test (2 Runden), Original byte-genau zurück; Traktor liest neuere Dateien beim Laden neu, COMM schlägt PRIV; M16 bestätigt, M26 vorgeschlagen.
-- 2026-10-27 P2/4 Runde 3: reine NML-Felder nur im PRIV; alter PRIV überschreibt Color/Comment 2 beim Neu-Einlesen; Abgleich MODIFIED_* verhindert das (M27 vorgeschlagen). M26 freigegeben.
+- 2026-10-27 P2/4 Runde 3: reine NML-Felder nur im PRIV; alter PRIV überschreibt Color/Comment 2 beim Neu-Einlesen; Abgleich MODIFIED_* verhindert das (Runde 3c, wiederholt mit Laden ins Deck; M27 vorgeschlagen). M26 freigegeben.
 - 2026-10-27 M20: Pool-Grundregel `+ Kachina +` → KACHINA, sonst YOKA.
 
 ## Offene Punkte
